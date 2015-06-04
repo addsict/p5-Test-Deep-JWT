@@ -44,7 +44,7 @@
       },
       "runtime" : {
          "requires" : {
-            "JSON::WebToken" : "0.10",
+            "JSON" : "0",
             "Test::Deep" : "0",
             "Test::Deep::Cmp" : "0",
             "perl" : "5.008005"
@@ -57,5 +57,16 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/addsict/p5-Test-Deep-JWT/issues"
+      },
+      "homepage" : "https://github.com/addsict/p5-Test-Deep-JWT",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/addsict/p5-Test-Deep-JWT.git",
+         "web" : "https://github.com/addsict/p5-Test-Deep-JWT"
+      }
+   },
    "version" : "0.01"
 }

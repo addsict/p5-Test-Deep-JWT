@@ -2,7 +2,8 @@ package Test::Deep::JWT;
 use 5.008005;
 use strict;
 use warnings;
-use JSON::WebToken qw(decode_jwt);
+use MIME::Base64 qw(decode_base64url);
+use JSON qw(decode_json);
 use Test::Deep ();
 use Test::Deep::Cmp;
 use Exporter qw(import);
@@ -24,13 +25,23 @@ sub init {
 
 sub descend {
     my ($self, $got) = @_;
-    my $decoded = eval {
-        decode_jwt $got, undef, 0;
+    my ($header, $claims) = eval {
+        my ($header, $claims, $sig) = split /\./, $got;
+        return (
+            decode_json(decode_base64url($header)),
+            decode_json(decode_base64url($claims))
+        );
     };
     if (my $e = $@) {
         return 0;
     }
-    return Test::Deep::wrap($self->{claims})->descend($decoded);
+
+    my $header_ok = 1;
+    if ($self->{header}) {
+        $header_ok = Test::Deep::wrap($self->{header})->descend($header);
+    }
+
+    return Test::Deep::wrap($self->{claims})->descend($claims) && $header_ok;
 }
 
 # sub diagnostics {

@@ -1,5 +1,5 @@
 requires 'perl', '5.008001';
-requires 'JSON::WebToken', '0.10';
+requires 'JSON';
 requires 'Test::Deep';
 requires 'Test::Deep::Cmp';
 
