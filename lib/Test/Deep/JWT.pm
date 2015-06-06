@@ -33,6 +33,7 @@ sub descend {
         );
     };
     if (my $e = $@) {
+        $self->{error} = $e;
         return 0;
     }
 
@@ -44,10 +45,10 @@ sub descend {
     return Test::Deep::wrap($self->{claims})->descend($claims) && $header_ok;
 }
 
-# sub diagnostics {
-    # my ($self) = @_;
-    # return $self->{claims}->diagnostics(@_);
-# }
+sub diagnostics {
+    my ($self) = @_;
+    return $self->{error} if $self->{error};
+}
 
 1;
 __END__
@@ -56,15 +57,30 @@ __END__
 
 =head1 NAME
 
-Test::Deep::JWT - It's new $module
+Test::Deep::JWT - JWT comparison with Test:Deep functionality
 
 =head1 SYNOPSIS
 
+    use Test::Deep;
     use Test::Deep::JWT;
+
+    cmp_deeply 'eyJhbGciOiJub25lIn0.eyJzdWIiOiIxMDAiLCJhdWQiOiIxMjMifQ.', jwt(+{
+        sub => '100',
+        aud => ignore()
+    }, +{
+        alg => 'none'
+    });
 
 =head1 DESCRIPTION
 
-Test::Deep::JWT is ...
+Test::Deep::JWT is the helper module for comparing JWT string with Test::Deep functionality.
+This module will export a function called 'jwt'.
+
+=head2 jwt(\%claims, \%header)
+
+\%claims is the expected claims part of JWT.
+
+\%header is the expected header part of JWT (Optional).
 
 =head1 LICENSE
 
@@ -76,6 +92,17 @@ it under the same terms as Perl itself.
 =head1 AUTHOR
 
 Yuuki Furuyama E<lt>addsict@gmail.comE<gt>
+
+=head1 THANKS
+
+This module is highly inspired from L<Test::Deep::JSON>.
+The most part of implementation is borrowed from that module.
+
+=head1 SEE ALSO
+
+L<Test::Deep>
+
+L<Test::Deep::JSON>
 
 =cut
 
