@@ -66,5 +66,8 @@
          "web" : "ssh://git@github.com/addsict/p5-Test-Deep-JWT"
       }
    },
-   "version" : "0.01"
+   "version" : "0.01",
+   "x_contributors" : [
+      "Yuki Furuyama <yuki.furuyama@dena.com>"
+   ]
 }
