@@ -43,6 +43,7 @@
       "runtime" : {
          "requires" : {
             "JSON" : "0",
+            "MIME::Base64" : "3.11",
             "Test::Deep" : "0",
             "Test::Deep::Cmp" : "0",
             "perl" : "5.008005"
@@ -66,7 +67,7 @@
          "web" : "ssh://git@github.com/addsict/p5-Test-Deep-JWT"
       }
    },
-   "version" : "0.01",
+   "version" : "0.02",
    "x_contributors" : [
       "Yuki Furuyama <yuki.furuyama@dena.com>"
    ]
